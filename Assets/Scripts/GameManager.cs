@@ -3,9 +3,13 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;  // Static instance of GameManager, which allows it to be accessed by any other script.
+    public int playerFoodPoints = 100;          // Player's food (health) points. Will decrement over time.
+    [HideInInspector]
+    public bool playersTurn = true;             // Whether or not it's the player's turn to move.
 
     private BoardManager boardScript;           // Store a reference to our BoardManager, which will set up the level.
     private int level = 3;                      // Current level number.
+
 
     // Awake is always called before any Start functions.
     void Awake()
@@ -33,6 +37,12 @@ public class GameManager : MonoBehaviour
     {
         // Call the SetupScene function of the BoardManager script, pass in the current level.
         boardScript.SetupScene(level);
+    }
+
+    // Ends the game.
+    public void GameOver()
+    {
+        enabled = false;
     }
 
     // Update is called once per frame.
